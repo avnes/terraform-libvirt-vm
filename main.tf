@@ -2,6 +2,22 @@ provider "libvirt" {
     uri = "qemu:///system"
 }
 
+resource "tls_private_key" "private_key" {
+  algorithm = "RSA"
+}
+
+resource "local_file" "ssh_private_key" {
+    sensitive_content = tls_private_key.private_key.private_key_pem
+    filename          = pathexpand("~/.ssh/${var.project_name}.pem")
+    file_permission   = "0600"
+}
+
+resource "local_file" "ssh_public_key" {
+    content           = tls_private_key.private_key.public_key_openssh
+    filename          = pathexpand("~/.ssh/${var.project_name}.pub")
+    file_permission   = "0644"
+}
+
 resource "libvirt_volume" "base_image_volume" {
     name   = local.base_image_name
     source = local.iso_name
@@ -21,8 +37,9 @@ data "template_file" "cloud_init" {
   template = file("${path.module}/cloud_init.cfg")
   for_each   = var.nodes
   vars     = {
-    hostname   = each.value.name
-    domainname = local.domain_name
+    hostname    = each.value.name
+    domainname  = local.domain_name
+    ssh_pub_key = tls_private_key.private_key.public_key_openssh
   }
 }
 

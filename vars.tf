@@ -1,6 +1,6 @@
 variable "project_name" {
     type = string
-    default = "valyria"
+    default = null
     description = "The project name is used for grouping the VMs"
 }
 

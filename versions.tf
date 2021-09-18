@@ -7,10 +7,20 @@ terraform {
       version = "0.6.11"
     }
 
-    # Deprecated: https://registry.terraform.io/providers/hashicorp/template/latest/docs
+    # TODO: Deprecated: https://registry.terraform.io/providers/hashicorp/template/latest/docs
     template = {
       source = "hashicorp/template"
       version = "2.2.0"
+    }
+
+    tls = {
+      source = "hashicorp/tls"
+      version = "3.1.0"
+    }
+
+    local = {
+      source = "hashicorp/local"
+      version = "2.1.0"
     }
   }
 }
