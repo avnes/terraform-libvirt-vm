@@ -43,8 +43,32 @@ Now logout, and login again to activate your membership in the libvirt group.
 
 ## Create VMs with terraform
 
+### Define variables
+
+Create a file called terraform.tfvars with content similar to this:
+
+```hcl
+project_name = "valyria"
+iso_name = "CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2"
+
+nodes = {
+    "master" = {
+        name        = "targaryen",
+        vcpu        = 1,
+        memory      = "2048",
+        disk_pool   = "default",
+        disk_size   = "12000000000",
+        mac         = "52:54:00:11:22:33",
+    },
+}
+```
+
+If you want to use a remote backend to store the state, also create a file called backend.tf.
+
+More info about Terraform backends at <https://www.terraform.io/docs/language/settings/backends/>
+
 ```bash
 cd valyria-vm
-terraform init -upgrade
+terraform init # Or: terraform init -backend-config=backend.tf
 terraform apply
 ```
