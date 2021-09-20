@@ -17,7 +17,7 @@ This repository contains some dummy passwords the root account. This is intentio
 Please note that these instructions are written for Fedora.
 
 ```bash
-sudo dnf install libvirt cockpit cockpit-machines
+sudo dnf install libvirt cockpit cockpit-machines virt-manager
 sudo systemctl enable cockpit.socket --now
 sudo systemctl enable libvirtd --now
 sudo firewall-cmd --zone=public --add-service=cockpit --permanent
