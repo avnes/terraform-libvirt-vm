@@ -1,6 +1,6 @@
-# valyria-vm
+# terraform-libvirt-vm
 
-Used to create kvm/qemu/libvirt VMs through automation using Terraform. These will eventually be used to power my Kubernetes playground at home.
+Used to create kvm/qemu/libvirt VMs with Fedora server through automation using Terraform. These will eventually be used to power my Kubernetes playground at home.
 
 ## Credits
 
@@ -48,7 +48,7 @@ Now logout, and login again to activate your membership in the libvirt group.
 Create a file called terraform.tfvars with content similar to this:
 
 ```hcl
-project_name = "valyria"
+project_name = "dragonstone"
 
 nodes = {
     "master" = {
@@ -67,7 +67,7 @@ If you want to use a remote backend to store the state, also create a file calle
 More info about Terraform backends at <https://www.terraform.io/docs/language/settings/backends/>
 
 ```bash
-cd valyria-vm
+cd terraform-libvirt-vm
 terraform init # Or: terraform init -backend-config=backend.tf
 terraform apply
 ```

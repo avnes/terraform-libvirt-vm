@@ -6,7 +6,7 @@
     "onboarding": false,
     "platform": "github",
     "repositories": [
-        "avnes/valyria-vm"
+        "avnes/terraform-libvirt-vm"
     ],
     "packageRules": [{
         "matchUpdateTypes": [
