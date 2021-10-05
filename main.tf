@@ -26,7 +26,7 @@ resource "random_password" "password" {
 
 resource "libvirt_volume" "base_image_volume" {
     name   = local.base_image_name
-    source = var.iso_name
+    source = local.cloud_image_url
     pool   = var.disk_pool
 }
 

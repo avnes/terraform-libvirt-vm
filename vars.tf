@@ -4,10 +4,16 @@ variable "project_name" {
     description = "The project name is used for grouping the VMs"
 }
 
-variable "iso_name" {
+variable "cloud_image_name" {
     type = string
-    default = "https://download.fedoraproject.org/pub/fedora/linux/releases/34/Cloud/x86_64/images/Fedora-Cloud-Base-34-1.2.x86_64.qcow2"
-    description = "The ISO file filename"
+    default = "CentOS-Stream-GenericCloud-8-20210603.0.x86_64.qcow2"
+    description = "The cloud image file filename"
+}
+
+variable "cloud_image_base_url" {
+    type = string
+    default = "https://cloud.centos.org/centos/8-stream/x86_64/images"
+    description = "The base URL for the cloud image files"
 }
 
 variable "disk_pool" {

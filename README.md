@@ -1,20 +1,16 @@
 # terraform-libvirt-vm
 
-Used to create kvm/qemu/libvirt VMs with Fedora server through automation using Terraform. These will eventually be used to power my Kubernetes playground at home.
+Used to create kvm/qemu/libvirt VMs with CentOS Stream server through automation using Terraform. These will eventually be used to power my Kubernetes playground at home.
 
 ## Credits
 
 Thanks to the blog <https://www.desgehtfei.net/en/quick-start-kvm-libvirt-vms-with-terraform-and-ansible-part-1-2/> for a lot of inspiration.
 
-## Security
-
-This repository contains some dummy passwords the root account. This is intentional. I will have other automation to replace these passwords when hardening the infrastructure.
-
 ## Requirements
 
 ### Install virtualization software
 
-Please note that these instructions are written for Fedora.
+Please note that these instructions are written for Fedora:
 
 ```bash
 sudo dnf install libvirt cockpit cockpit-machines virt-manager
