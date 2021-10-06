@@ -64,6 +64,6 @@ More info about Terraform backends at <https://www.terraform.io/docs/language/se
 
 ```bash
 cd terraform-libvirt-vm
-terraform init # Or: terraform init -backend-config=backend.tf
-terraform apply
+terraform init  # Or: terraform init -backend-config=/path-to/backend.tf
+terraform apply # Or: terraform apply -var-file=/path-to/terraform.tfvars
 ```
