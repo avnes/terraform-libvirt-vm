@@ -14,10 +14,20 @@
             "digest",
             "patch",
             "minor",
-            "major",
             "lockFileMaintenance"
         ],
-        "dependencyDashboardApproval": false,
-        "stabilityDays": 0
+        "stabilityDays": 0,
+        "automerge": true,
+        "matchCurrentVersion": "!/^0/",
+        "ignoreTests": true,
+        "dependencyDashboardApproval": false
+    },{
+        "matchUpdateTypes": [
+            "major"
+        ],
+        "stabilityDays": 0,
+        "automerge": false,
+        "dependencyDashboard": true,
+        "dependencyDashboardApproval": false
     }]
 }
