@@ -1,5 +1,5 @@
 provider "libvirt" {
-    uri = "qemu:///system"
+  uri = "qemu:///system"
 }
 
 resource "tls_private_key" "private_key" {
@@ -7,15 +7,15 @@ resource "tls_private_key" "private_key" {
 }
 
 resource "local_file" "ssh_private_key" {
-    sensitive_content = tls_private_key.private_key.private_key_pem
-    filename          = pathexpand("~/.ssh/${var.project_name}.pem")
-    file_permission   = "0600"
+  sensitive_content = tls_private_key.private_key.private_key_pem
+  filename          = pathexpand("~/.ssh/${var.project_name}.pem")
+  file_permission   = "0600"
 }
 
 resource "local_file" "ssh_public_key" {
-    content           = tls_private_key.private_key.public_key_openssh
-    filename          = pathexpand("~/.ssh/${var.project_name}.pub")
-    file_permission   = "0644"
+  content         = tls_private_key.private_key.public_key_openssh
+  filename        = pathexpand("~/.ssh/${var.project_name}.pub")
+  file_permission = "0644"
 }
 
 resource "random_password" "password" {
@@ -25,13 +25,13 @@ resource "random_password" "password" {
 }
 
 resource "libvirt_volume" "base_image_volume" {
-    name   = local.base_image_name
-    source = local.cloud_image_url
-    pool   = var.disk_pool
+  name   = local.base_image_name
+  source = local.cloud_image_url
+  pool   = var.disk_pool
 }
 
 resource "libvirt_volume" "node_volume" {
-  for_each = var.nodes
+  for_each       = var.nodes
   name           = "${each.value.name}.qcow2"
   base_volume_id = libvirt_volume.base_image_volume.id
   pool           = each.value.disk_pool
@@ -41,35 +41,37 @@ resource "libvirt_volume" "node_volume" {
 
 data "template_file" "cloud_init" {
   template = file("${path.module}/cloud_init.cfg")
-  for_each   = var.nodes
-  vars     = {
-    hostname          = each.value.name
-    domainname        = local.domain_name
-    ssh_pub_key       = tls_private_key.private_key.public_key_openssh
-    ansible_password  = random_password.password.result
+  for_each = var.nodes
+  vars = {
+    hostname         = each.value.name
+    domainname       = local.domain_name
+    ssh_pub_key      = tls_private_key.private_key.public_key_openssh
+    ansible_password = random_password.password.result
   }
 }
 
 resource "libvirt_cloudinit_disk" "init_disk" {
-  for_each   = var.nodes
+  for_each  = var.nodes
   name      = "${each.value.name}_init_disk.iso"
   user_data = data.template_file.cloud_init[each.key].rendered
 }
 
 resource "libvirt_domain" "domain" {
   for_each   = var.nodes
-  name   = each.value.name
-  memory = each.value.memory
-  vcpu   = each.value.vcpu
+  name       = each.value.name
+  memory     = each.value.memory
+  vcpu       = each.value.vcpu
+  qemu_agent = var.qemu_agent
 
   network_interface {
     network_name   = var.network_name
     mac            = each.value.mac
     wait_for_lease = var.network_name == "host-bridge" ? false : true
+    bridge         = var.bridge_name
   }
 
   disk {
-    volume_id = element(libvirt_volume.node_volume[each.key].*.id, 1 )
+    volume_id = element(libvirt_volume.node_volume[each.key].*.id, 1)
   }
 
   cloudinit = libvirt_cloudinit_disk.init_disk[each.key].id
