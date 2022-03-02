@@ -20,7 +20,7 @@ output "ssh_public_key_filename" {
 output "ssh_command" {
   value = tomap({
     for k, domain in libvirt_domain.domain : k => (
-      "ssh -i ${local_file.ssh_private_key.filename} ansible@${domain.network_interface[0].addresses[0]}"
+      "ssh -i ${local_file.ssh_private_key.filename} ansible@${domain.network_interface[0].hostname}"
     )
   })
 }
