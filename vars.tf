@@ -40,6 +40,12 @@ variable "qemu_agent" {
   description = "Add Qemu guest agent"
 }
 
+variable "wait_for_lease" {
+  type        = bool
+  default     = true
+  description = "Wait until the network interface gets a DHCP lease from libvirt, so that the computed IP addresses will be available when the domain is up and the plan applied."
+}
+
 variable "nodes" {
   type        = map(any)
   default     = {}
