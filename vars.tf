@@ -36,7 +36,7 @@ variable "bridge_name" {
 
 variable "qemu_agent" {
   type        = bool
-  default     = true
+  default     = false
   description = "Add Qemu guest agent"
 }
 
