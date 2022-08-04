@@ -28,12 +28,6 @@ variable "network_name" {
   description = "The name of the libvirt network"
 }
 
-variable "bridge_name" {
-  type        = string
-  default     = "virbr0"
-  description = "The name of the libvirt bridge adapter"
-}
-
 variable "qemu_agent" {
   type        = bool
   default     = false
