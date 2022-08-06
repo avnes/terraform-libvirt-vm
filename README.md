@@ -10,7 +10,7 @@ Thanks to the blog <https://www.desgehtfei.net/en/quick-start-kvm-libvirt-vms-wi
 
 ### Install virtualization software
 
-Please note that these instructions are written for Fedora:
+Please note that these instructions are written for Fedora and CentOS Stream:
 
 ```bash
 sudo dnf install libvirt cockpit cockpit-machines virt-manager
@@ -19,6 +19,21 @@ sudo systemctl enable libvirtd --now
 sudo firewall-cmd --zone=public --add-service=cockpit --permanent
 sudo firewall-cmd --reload
 ```
+
+### Configure DNS
+
+
+A low cost solution is to run `sudo virsh net-edit default` and add this element
+
+```
+  <dns>
+    <host ip='192.168.122.1'>
+      <hostname>gateway</hostname>
+    </host>
+  </dns>
+```
+
+Where 192.168.122.1 must match the address for your libvirt networks's gateway IP. Then edit /etc/resolve.conf and add `nameserver 192.168.122.1` as the first nameserver in the file. You will now be able to use 'nslookup' on the server names created by libvirt.
 
 ### Install Terraform
 
