@@ -51,3 +51,9 @@ variable "nodes" {
   default     = {}
   description = "A map of maps with server details. Please see example in README"
 }
+
+variable "custom_cmd" {
+  type        = string
+  default     = "touch /var/log/dummy.log"
+  description = "Run one custom runcmd in cloud-init"
+}

@@ -45,6 +45,7 @@ data "template_file" "cloud_init" {
   vars = {
     hostname         = each.value.name
     domainname       = var.domain_name
+    custom_cmd       = var.custom_cmd
     ssh_pub_key      = tls_private_key.private_key.public_key_openssh
     ansible_password = random_password.password.result
   }
