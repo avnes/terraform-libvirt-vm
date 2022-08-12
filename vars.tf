@@ -4,6 +4,12 @@ variable "project_name" {
   description = "The project name is used for grouping the VMs"
 }
 
+variable "domain_name" {
+  type        = string
+  default     = "localdomain"
+  description = "The DNS domain name to use"
+}
+
 variable "cloud_image_name" {
   type        = string
   default     = "CentOS-Stream-GenericCloud-8-20220125.1.x86_64.qcow2"
@@ -30,13 +36,13 @@ variable "network_name" {
 
 variable "qemu_agent" {
   type        = bool
-  default     = false
+  default     = true
   description = "Add Qemu guest agent"
 }
 
 variable "wait_for_lease" {
   type        = bool
-  default     = true
+  default     = false
   description = "Wait until the network interface gets a DHCP lease from libvirt, so that the computed IP addresses will be available when the domain is up and the plan applied."
 }
 

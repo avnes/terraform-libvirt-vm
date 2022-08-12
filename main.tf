@@ -44,7 +44,7 @@ data "template_file" "cloud_init" {
   for_each = var.nodes
   vars = {
     hostname         = each.value.name
-    domainname       = local.domain_name
+    domainname       = var.domain_name
     ssh_pub_key      = tls_private_key.private_key.public_key_openssh
     ansible_password = random_password.password.result
   }
@@ -65,8 +65,9 @@ resource "libvirt_domain" "domain" {
 
   network_interface {
     network_name   = var.network_name
+    hostname       = each.value.name
     mac            = each.value.mac
-    wait_for_lease = var.network_name == "host-bridge" ? false : true
+    wait_for_lease = var.wait_for_lease
   }
 
   disk {
