@@ -1,5 +1,7 @@
 project_name = "dev"
 
+network_name = "bridged-network"
+
 nodes = {
   "master" = {
     name      = "dev-node01",
