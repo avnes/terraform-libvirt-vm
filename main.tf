@@ -7,9 +7,9 @@ resource "tls_private_key" "private_key" {
 }
 
 resource "local_sensitive_file" "ssh_private_key" {
-  content = tls_private_key.private_key.private_key_pem
-  filename          = pathexpand("~/.ssh/${var.project_name}.pem")
-  file_permission   = "0600"
+  content         = tls_private_key.private_key.private_key_pem
+  filename        = pathexpand("~/.ssh/${var.project_name}.pem")
+  file_permission = "0600"
 }
 
 resource "local_file" "ssh_public_key" {
@@ -74,7 +74,7 @@ resource "libvirt_domain" "domain" {
   disk {
     volume_id = element(libvirt_volume.node_volume[each.key].*.id, 1)
   }
-  
+
   graphics {
     type        = "vnc"
     listen_type = "address"

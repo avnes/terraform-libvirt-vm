@@ -3,7 +3,7 @@ terraform {
 
   required_providers {
     libvirt = {
-      source  = "dmacvicar/libvirt"
+      source = "dmacvicar/libvirt"
     }
 
     # TODO: Deprecated: https://registry.terraform.io/providers/hashicorp/template/latest/docs
