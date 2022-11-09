@@ -6,8 +6,8 @@ resource "tls_private_key" "private_key" {
   algorithm = "RSA"
 }
 
-resource "local_file" "ssh_private_key" {
-  sensitive_content = tls_private_key.private_key.private_key_pem
+resource "local_sensitive_file" "ssh_private_key" {
+  content = tls_private_key.private_key.private_key_pem
   filename          = pathexpand("~/.ssh/${var.project_name}.pem")
   file_permission   = "0600"
 }
@@ -73,6 +73,11 @@ resource "libvirt_domain" "domain" {
 
   disk {
     volume_id = element(libvirt_volume.node_volume[each.key].*.id, 1)
+  }
+  
+  graphics {
+    type        = "vnc"
+    listen_type = "address"
   }
 
   cloudinit = libvirt_cloudinit_disk.init_disk[each.key].id
