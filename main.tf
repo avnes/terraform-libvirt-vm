@@ -63,6 +63,7 @@ resource "libvirt_domain" "domain" {
   memory     = each.value.memory
   vcpu       = each.value.vcpu
   qemu_agent = var.qemu_agent
+  autostart  = var.autostart
 
   network_interface {
     network_name   = var.network_name

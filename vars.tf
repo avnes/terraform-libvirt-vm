@@ -40,6 +40,12 @@ variable "qemu_agent" {
   description = "Add Qemu guest agent"
 }
 
+variable "autostart" {
+  type        = bool
+  default     = true
+  description = "Start virtual machine when host machine boots."
+}
+
 variable "wait_for_lease" {
   type        = bool
   default     = false
