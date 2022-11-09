@@ -12,7 +12,7 @@ variable "domain_name" {
 
 variable "cloud_image_name" {
   type        = string
-  default     = "CentOS-Stream-GenericCloud-8-20220125.1.x86_64.qcow2"
+  default     = "CentOS-Stream-GenericCloud-8-20220913.0.x86_64.qcow2"
   description = "The cloud image file filename"
 }
 
